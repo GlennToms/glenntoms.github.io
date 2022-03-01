@@ -1,4 +1,15 @@
 # The Site Configuration
+lsi: false
+safe: true
+source: [_site]
+incremental: false
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
 
 # Import the theme
 theme: jekyll-theme-chirpy
@@ -180,6 +191,15 @@ compress_html:
   ignore:
     envs: [development]
 
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
+
 exclude:
   - '*.gem'
   - '*.gemspec'
@@ -190,12 +210,4 @@ exclude:
   - node_modules
   - package*.json
   - '*.bat'
-
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
+  - z____Jekyll-Guides
