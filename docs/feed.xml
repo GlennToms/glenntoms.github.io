@@ -4,7 +4,7 @@
   <id>https://glenntoms.github.io/</id>
   <title>InfoSec Journey</title>
   <subtitle>Here you'll find my musings, ramblings, guides, and snippets as I detail my journey into #InfoSec. I've always been curious about how things are put together. Deciphering the complexities of systems, applications, and hardware is something I've always enjoyed doing. </subtitle>
-  <updated>2022-03-02T09:24:42+00:00</updated>
+  <updated>2022-03-02T14:20:38+00:00</updated>
   <author>
     <name>Glenn Toms</name>
     <uri>https://glenntoms.github.io/</uri>
@@ -24,7 +24,7 @@
     <link href="https://glenntoms.github.io/posts/vulnnet/" rel="alternate" type="text/html" title="VulnNet" />
     <published>2022-02-28T06:07:11+00:00</published>
   
-    <updated>2022-03-02T09:16:31+00:00</updated>
+    <updated>2022-03-02T14:08:20+00:00</updated>
   
     <id>https://glenntoms.github.io/posts/vulnnet/</id>
     <content src="https://glenntoms.github.io/posts/vulnnet/" />
