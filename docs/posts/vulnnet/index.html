@@ -43,8 +43,8 @@
 <meta property="og:locale" content="en" />
 <meta name="description" content="[0x01] Outline" />
 <meta property="og:description" content="[0x01] Outline" />
-<link rel="canonical" href="http://localhost:4000/posts/vulnnet/" />
-<meta property="og:url" content="http://localhost:4000/posts/vulnnet/" />
+<link rel="canonical" href="https://glenntoms.github.io/posts/vulnnet/" />
+<meta property="og:url" content="https://glenntoms.github.io/posts/vulnnet/" />
 <meta property="og:site_name" content="InfoSec Journey" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-02-28T06:07:11+00:00" />
@@ -52,7 +52,7 @@
 <meta property="twitter:title" content="VulnNet" />
 <meta name="twitter:site" content="@Glenn__Toms" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","description":"[0x01] Outline","url":"http://localhost:4000/posts/vulnnet/","headline":"VulnNet","dateModified":"2022-02-28T06:07:11+00:00","datePublished":"2022-02-28T06:07:11+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/vulnnet/"},"@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","description":"[0x01] Outline","url":"https://glenntoms.github.io/posts/vulnnet/","headline":"VulnNet","dateModified":"2022-02-28T06:07:11+00:00","datePublished":"2022-02-28T06:07:11+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://glenntoms.github.io/posts/vulnnet/"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1207,7 +1207,7 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="2183 words">
+  title="2184 words">
   <em>12 min</em> read</span>
 
 
@@ -1314,13 +1314,13 @@ Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
 
 <p>Watching the network tab on the dev tools we can see that there are two <code class="language-plaintext highlighter-rouge">js</code> files being loaded, <code class="language-plaintext highlighter-rouge">index__7ed54732.js</code> and <code class="language-plaintext highlighter-rouge">index__d8338055.js</code>, we’ll take note of these and continue walking the site.</p>
 
-<p>Clicking the sign in button takes you to a login form.  Brute forcing isn’t a option as we have no usernames or passwords to try.  <code class="language-plaintext highlighter-rouge">Sign Up</code> and <code class="language-plaintext highlighter-rouge">Forgot Password</code> are just Anchor Tags and don’t go anywhere.</p>
+<p>Clicking the sign-in button takes you to a login form.  Brute forcing isn’t an option as we have no usernames or passwords to try.  <code class="language-plaintext highlighter-rouge">Sign Up</code> and <code class="language-plaintext highlighter-rouge">Forgot Password</code> are just Anchor Tags and don’t go anywhere.</p>
 
 <p><img data-src="/assets/img/vulnnet/02.png" alt="Sigin" width="300" data-proofer-ignore></p>
 
-<p>After spending a few minutes with <code class="language-plaintext highlighter-rouge">BurpSuite</code> trying various <code class="language-plaintext highlighter-rouge">SQLI</code> attacks we’re not getting any error messages or indication that <code class="language-plaintext highlighter-rouge">SQLI</code> is possible.  There isn’t anything else to try on the website so we need to find other endpoints to probe.</p>
+<p>After spending a few minutes with <code class="language-plaintext highlighter-rouge">BurpSuite</code> trying various <code class="language-plaintext highlighter-rouge">SQLI</code> attacks we’re not getting any error messages or indication that <code class="language-plaintext highlighter-rouge">SQLI</code> is possible.  There isn’t anything else to try on the website, so we need to find other endpoints to probe.</p>
 
-<p>Now we move on to the js files.  We can save them down with <code class="language-plaintext highlighter-rouge">curl -O</code> and run them through a <code class="language-plaintext highlighter-rouge">bash</code> port of <a href="https://twitter.com/TomNomNom">tomnomnom’s</a> go tool <a href="https://github.com/tomnomnom/gf">gf</a> that I coded last week which I called <code class="language-plaintext highlighter-rouge">pursue</code>.</p>
+<p>Now we move on to the JS files.  We can save them down with <code class="language-plaintext highlighter-rouge">curl -O</code> and run them through a <code class="language-plaintext highlighter-rouge">bash</code> port of <a href="https://twitter.com/TomNomNom">tomnomnom’s</a> go tool <a href="https://github.com/tomnomnom/gf">gf</a> that I coded last week which I called <code class="language-plaintext highlighter-rouge">pursue</code>.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1342,7 +1342,7 @@ broadcast.vulnnet.thm
 vulnnet.thm
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Searching for domains in these two js files we find <code class="language-plaintext highlighter-rouge">vulnnet.thm</code> which is the page we are on and a new subdomain called <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>.</p>
+<p>Searching for domains in these two JS files we find <code class="language-plaintext highlighter-rouge">vulnnet.thm</code> which is the page we are on, and a new subdomain called <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>.</p>
 
 <blockquote class="prompt-info"><div>
   <p>gobuster will find this address using ‘subdomains-top1million-5000.txt’</p>
@@ -1352,7 +1352,7 @@ vulnnet.thm
 
 <p>Adding broadcast.vulnnet.thm address to <code class="language-plaintext highlighter-rouge">/etc/hosts</code> and checking the website we’re prompted for a username and password.</p>
 
-<p>We’ll set <code class="language-plaintext highlighter-rouge">gobuster</code> to run again on <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code> and see if there are any pages that does not require authentication. We’ll have to set <code class="language-plaintext highlighter-rouge">-b 401</code> to ignore <code class="language-plaintext highlighter-rouge">401 Unauthorized</code> status codes.</p>
+<p>We’ll set <code class="language-plaintext highlighter-rouge">gobuster</code> to scan on <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code> and check to see if there are any pages that do not require authentication. We’ll have to set <code class="language-plaintext highlighter-rouge">-b 401</code> to ignore <code class="language-plaintext highlighter-rouge">401 Unauthorized</code> status codes.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1360,11 +1360,11 @@ vulnnet.thm
 </pre></td><td class="rouge-code"><pre>gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://broadcast.vulnnet.thm <span class="nt">-w</span> /usr/share/wordlists/seclists/Discovery/Web-Content/raft-small-words.txt <span class="nt">-o</span> broadcast.dirs <span class="nt">-b</span> 401
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Now we’re stuck since we’ve exhausted <code class="language-plaintext highlighter-rouge">vulnnet.thm</code>. Our directory scan didn’t find anything and we waiting on our <code class="language-plaintext highlighter-rouge">gobuster</code> scan of <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>. We can go back and take a deeper look at the js files.</p>
+<p>Now we’re stuck since we’ve exhausted <code class="language-plaintext highlighter-rouge">vulnnet.thm</code>. Our directory scan didn’t find anything, and we’re waiting on our <code class="language-plaintext highlighter-rouge">gobuster</code> scan of <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>. We can go back and take a deeper look at the JS files.</p>
 
 <h2 id="0x03-local-file-inclusion"><span class="mr-2">[0x03] Local File Inclusion</span><a href="#0x03-local-file-inclusion" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
-<p>Running <code class="language-plaintext highlighter-rouge">pursue</code> on our js files shows that <code class="language-plaintext highlighter-rouge">index__d8338055.js</code> has a call with a <code class="language-plaintext highlighter-rouge">referer</code> param.</p>
+<p>Running <code class="language-plaintext highlighter-rouge">pursue</code> on our JS files shows that <code class="language-plaintext highlighter-rouge">index__d8338055.js</code> has a call with a <code class="language-plaintext highlighter-rouge">referer</code> parameter.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1374,7 +1374,7 @@ vulnnet.thm
 ./index__d8338055.js:http://vulnnet.thm/index.php?referer<span class="o">=</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>The code is heavily compacted and I honestly have no idea how to read it but clearly it must be calling <code class="language-plaintext highlighter-rouge">http://vulnnet.thm/index.php</code> and setting <code class="language-plaintext highlighter-rouge">referer=</code> to something.  Let’s take a closer look in <code class="language-plaintext highlighter-rouge">BurpSuite</code>.</p>
+<p>The code is heavily compacted, I honestly have no idea how to read it, but clearly it must be calling <code class="language-plaintext highlighter-rouge">http://vulnnet.thm/index.php</code> and setting <code class="language-plaintext highlighter-rouge">referer=</code> to something. Let’s take a closer look in <code class="language-plaintext highlighter-rouge">BurpSuite</code>.</p>
 
 <div class="language-js highlighter-rouge"><div class="code-header">
         <span data-label-text="JavaScript"><i class="fas fa-code small"></i></span>
@@ -1390,10 +1390,10 @@ vulnnet.thm
 
 <h3 id="referer"><span class="mr-2">referer=</span><a href="#referer" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
 
-<p>When clicking on the subscribe button we can see that there is a new Header <code class="language-plaintext highlighter-rouge">Referer: http://vulnnet.thm/?</code>. So this js file and function is setting <code class="language-plaintext highlighter-rouge">referer</code> to the current page we are currently on.</p>
+<p>When clicking on the subscribe button we can see that there is a new Header <code class="language-plaintext highlighter-rouge">Referer: http://vulnnet.thm/?</code>. So this JS file and function is setting <code class="language-plaintext highlighter-rouge">referer</code> to the current page we are currently on.</p>
 
 <blockquote class="prompt-tip"><div>
-  <p>When you see query parameters in urls, try LFI Local File Inclusion.</p>
+  <p>When you see query parameters in URLs, try LFI Local File Inclusion.</p>
 </div></blockquote>
 
 <p>Loading the page and sending the request to the <code class="language-plaintext highlighter-rouge">repeater</code> tab of Burp allows us to try many types of paths for our <code class="language-plaintext highlighter-rouge">LFI</code>.</p>
@@ -1420,7 +1420,7 @@ vulnnet.thm
 <span class="na">Upgrade-Insecure-Requests</span><span class="pi">:</span> <span class="m">1</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Trying <code class="language-plaintext highlighter-rouge">/etc/passwd</code> and searching the responce for <code class="language-plaintext highlighter-rouge">root:</code> we get one match, meaning we read out the contents of <code class="language-plaintext highlighter-rouge">/etc/passwd</code> and we now have a list of all the users on this system.</p>
+<p>Trying <code class="language-plaintext highlighter-rouge">/etc/passwd</code> and searching the response for <code class="language-plaintext highlighter-rouge">root:</code> we get one match, meaning we read out the contents of <code class="language-plaintext highlighter-rouge">/etc/passwd</code> and we now have a list of all the users on this system.</p>
 
 <div class="language-html highlighter-rouge"><div class="code-header">
         <span data-label-text="HTML"><i class="fas fa-code small"></i></span>
@@ -1436,9 +1436,9 @@ mysql:x:112:123:MySQL Server,,,:/nonexistent:/bin/false
 sshd:x:113:65534::/run/sshd:/usr/sbin/nologin
 </pre></td></tr></tbody></table></code></div></div>
 
-<h3 id="apache-config"><span class="mr-2">apache config</span><a href="#apache-config" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
+<h3 id="apache-config"><span class="mr-2">Apache config</span><a href="#apache-config" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
 
-<p>Now we can read out files that belong to the web server we should be able to find the apache config files.
+<p>Now we can read out files that belong to the web server we should be able to find the Apache config files.
 From our nmap banners we know this system is running <code class="language-plaintext highlighter-rouge">Apache httpd 2.4.29</code> on <code class="language-plaintext highlighter-rouge">Ubuntu</code>.  Searching the web for this information we’ll find that the default config location is <code class="language-plaintext highlighter-rouge">/etc/apache2/apache2.conf</code> and <code class="language-plaintext highlighter-rouge">/etc/apache2/sites-available/000-default.conf</code></p>
 
 <p>Checking <code class="language-plaintext highlighter-rouge">/etc/apache2/sites-available/000-default.conf</code> and finding the section for <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code> we can see the path for <code class="language-plaintext highlighter-rouge">AuthUserFile</code> is <code class="language-plaintext highlighter-rouge">/etc/apache2/.htpasswd</code>.  This file should have a username and password.</p>
@@ -1482,7 +1482,7 @@ From our nmap banners we know this system is running <code class="language-plain
 </pre></td></tr></tbody></table></code></div></div>
 
 <p>Loading the <code class="language-plaintext highlighter-rouge">.htaccess</code> file we can see the username and password required for logging in.
-Trying this as the username and password doesn’t work. A string starting with <code class="language-plaintext highlighter-rouge">$apr1$</code> is going to be a hash of the password. <code class="language-plaintext highlighter-rouge">hashcat</code> should be able crack this.</p>
+Trying this as the username and password doesn’t work. A string starting with <code class="language-plaintext highlighter-rouge">$apr1$</code> is going to be a hash of the password. <code class="language-plaintext highlighter-rouge">hashcat</code> should be able to crack this.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1490,7 +1490,7 @@ Trying this as the username and password doesn’t work. A string starting with 
 </pre></td><td class="rouge-code"><pre>developers:<span class="nv">$apr1$[</span>REDACTED]
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Checking the example list of hashes from <code class="language-plaintext highlighter-rouge">hashcat</code> we can see this is <code class="language-plaintext highlighter-rouge">1600 | Apache $apr1$ MD5, md5apr1, MD5 (APR)</code>.  Given enough time the password is eventually cracked and we’re able to log into <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>.</p>
+<p>Checking the example list of hashes from <code class="language-plaintext highlighter-rouge">hashcat</code> we can see this is <code class="language-plaintext highlighter-rouge">1600 | Apache $apr1$ MD5, md5apr1, MD5 (APR)</code>.  Given enough time the password is eventually cracked, and we’re able to log into <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1536,9 +1536,9 @@ Trying this as the username and password doesn’t work. A string starting with 
 <p><img data-src="/assets/img/vulnnet/03.png" alt="Clipbucket" width="700" data-proofer-ignore></p>
 
 <p>Trying the password on the <code class="language-plaintext highlighter-rouge">Login</code> button doesn’t work.  Now it’s time to run our recon with <code class="language-plaintext highlighter-rouge">gobuster</code> in dir mode.
-After spending a few minutes trying to <code class="language-plaintext highlighter-rouge">sign up</code> we are unable to get passed a error.  Given this is blocked behind developer credentials we’ll assume the site is not fully functional.</p>
+After spending a few minutes trying to <code class="language-plaintext highlighter-rouge">sign up</code> we are unable to get past the error.  Given this is blocked behind developer credentials we’ll assume the site is not fully functional.</p>
 
-<p>Reviewing our <code class="language-plaintext highlighter-rouge">gobuster</code> scan and filtering out the status codes of <code class="language-plaintext highlighter-rouge">403 Forbidden</code> we can see a files directory.</p>
+<p>Reviewing our <code class="language-plaintext highlighter-rouge">gobuster</code> scan and filtering out the status codes of <code class="language-plaintext highlighter-rouge">403 Forbidden</code> we can see a files’ directory.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1586,7 +1586,7 @@ After spending a few minutes trying to <code class="language-plaintext highlight
 
 <h3 id="setup"><span class="mr-2">Setup</span><a href="#setup" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
 
-<p>We need a reverse shell to upload and since this is PHP server so we’ll copy <code class="language-plaintext highlighter-rouge">/usr/share/seclists/Web-Shells/laudanum-0.8/php/php-reverse-shell.php</code> to out current working directory as <code class="language-plaintext highlighter-rouge">rev.php</code> and edit the variables to match our <code class="language-plaintext highlighter-rouge">IP</code> and the <code class="language-plaintext highlighter-rouge">port</code> we want to use.</p>
+<p>We require a reverse shell to upload and since this is PHP server, so we’ll copy <code class="language-plaintext highlighter-rouge">/usr/share/seclists/Web-Shells/laudanum-0.8/php/php-reverse-shell.php</code> to out current working directory as <code class="language-plaintext highlighter-rouge">rev.php</code> and edit the variables to match our <code class="language-plaintext highlighter-rouge">IP</code> and the <code class="language-plaintext highlighter-rouge">port</code> we want to use.</p>
 
 <div class="language-php highlighter-rouge"><div class="code-header">
         <span data-label-text="PHP"><i class="fas fa-code small"></i></span>
@@ -1767,7 +1767,7 @@ THM[REDACTED]
 <span class="nt">---snip---</span>
 </pre></td></tr></tbody></table></code></div></div>
 
-<p>Here we will create a script that when run as <code class="language-plaintext highlighter-rouge">root</code> it will over write the <code class="language-plaintext highlighter-rouge">/etc/sudoers</code> file with <code class="language-plaintext highlighter-rouge">server-management ALL=(root) NOPASSWD: ALL</code> allowing <code class="language-plaintext highlighter-rouge">server-management</code> to run any command as the <code class="language-plaintext highlighter-rouge">root</code> user.</p>
+<p>Here we will create a script that when run as <code class="language-plaintext highlighter-rouge">root</code> it will overwrite the <code class="language-plaintext highlighter-rouge">/etc/sudoers</code> file with <code class="language-plaintext highlighter-rouge">server-management ALL=(root) NOPASSWD: ALL</code> allowing <code class="language-plaintext highlighter-rouge">server-management</code> to run any command as the <code class="language-plaintext highlighter-rouge">root</code> user.</p>
 
 <div class="language-bash highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
@@ -1793,13 +1793,13 @@ THM[REDACTED]
 
 <h2 id="0x07-server-hardening"><span class="mr-2">[0x07] Server Hardening</span><a href="#0x07-server-hardening" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
-<p>This this section we will make recommendations on how to harden the server and mitigate these vulnerabilities.</p>
+<p>In this section we will make recommendations on how to harden the server and mitigate these vulnerabilities.</p>
 
 <h3 id="clipbucket"><span class="mr-2">ClipBucket</span><a href="#clipbucket" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
 <p><code class="language-plaintext highlighter-rouge">ClipBucket</code> should be upgraded to version <code class="language-plaintext highlighter-rouge">4.1</code> from <code class="language-plaintext highlighter-rouge">4.0</code> as patch notes mention that the vulnerabilities used in our attack have been patched.</p>
 
 <h3 id="passwords"><span class="mr-2">Passwords</span><a href="#passwords" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
-<p>Passwords used for both the <code class="language-plaintext highlighter-rouge">developers</code> and <code class="language-plaintext highlighter-rouge">server-management</code> accounts should be increased in length and complexity.  Using a password manager that is able to check against known passwords lists should also be considered.</p>
+<p>The passwords used for both the <code class="language-plaintext highlighter-rouge">developers</code> and <code class="language-plaintext highlighter-rouge">server-management</code> accounts should be increased in length and complexity.  Using a password manager that is able to check against known passwords lists should also be considered.</p>
 
 <h3 id="lfi"><span class="mr-2">LFI</span><a href="#lfi" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
 <p>This section of the code found in the <code class="language-plaintext highlighter-rouge">index.html</code> should be removed as it doesn’t provide any functionality.</p>
@@ -1819,7 +1819,7 @@ THM[REDACTED]
 </pre></td></tr></tbody></table></code></div></div>
 
 <h3 id="backup"><span class="mr-2">Backup</span><a href="#backup" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
-<p><code class="language-plaintext highlighter-rouge">tar</code> should not be used to backup files using the <code class="language-plaintext highlighter-rouge">*</code> on the GNU version. Moving to another program such as <code class="language-plaintext highlighter-rouge">gunzip</code> is recommended as no know <code class="language-plaintext highlighter-rouge">privsec</code> is known at this time.</p>
+<p><code class="language-plaintext highlighter-rouge">tar</code> should not be used to back up files using the <code class="language-plaintext highlighter-rouge">*</code> on the GNU version. Moving to another program such as <code class="language-plaintext highlighter-rouge">gunzip</code> is recommended as no know <code class="language-plaintext highlighter-rouge">privsec</code> is known at this time.</p>
 
 </div>
 
@@ -1884,19 +1884,19 @@ THM[REDACTED]
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=VulnNet - InfoSec Journey&amp;url=http://localhost:4000/posts/vulnnet/" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=VulnNet - InfoSec Journey&amp;url=https://glenntoms.github.io/posts/vulnnet/" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=VulnNet - InfoSec Journey&amp;u=http://localhost:4000/posts/vulnnet/" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=VulnNet - InfoSec Journey&amp;u=https://glenntoms.github.io/posts/vulnnet/" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://t.me/share/url?url=http://localhost:4000/posts/vulnnet/&amp;text=VulnNet - InfoSec Journey" data-toggle="tooltip" data-placement="top"
+        <a href="https://t.me/share/url?url=https://glenntoms.github.io/posts/vulnnet/&amp;text=VulnNet - InfoSec Journey" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>

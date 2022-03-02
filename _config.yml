@@ -33,7 +33,7 @@ description: >-                        # used by seo meta and the atom feed
   Deciphering the complexities of systems, applications, and hardware is something I've always enjoyed doing. 
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://glenntoms.github.io/'
+url: 'https://glenntoms.github.io'
 
 github:
   username: GlennToms             # change to your github username

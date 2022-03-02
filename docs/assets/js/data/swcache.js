@@ -45,7 +45,7 @@ const resource = [
 const allowedDomains = [
   
 
-  'localhost:4000',
+  'glenntoms.github.io',
 
   
 
