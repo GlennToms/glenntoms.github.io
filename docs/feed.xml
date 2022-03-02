@@ -4,7 +4,7 @@
   <id>https://glenntoms.github.io/</id>
   <title>InfoSec Journey</title>
   <subtitle>Here you'll find my musings, ramblings, guides, and snippets as I detail my journey into #InfoSec. I've always been curious about how things are put together. Deciphering the complexities of systems, applications, and hardware is something I've always enjoyed doing. </subtitle>
-  <updated>2022-03-02T21:09:22+00:00</updated>
+  <updated>2022-03-02T21:18:28+00:00</updated>
   <author>
     <name>Glenn Toms</name>
     <uri>https://glenntoms.github.io/</uri>
@@ -24,7 +24,7 @@
     <link href="https://glenntoms.github.io/posts/vulnnet-dotpy/" rel="alternate" type="text/html" title="VulnNet: dotpy" />
     <published>2022-03-01T16:18:00+00:00</published>
   
-    <updated>2022-03-01T16:18:00+00:00</updated>
+    <updated>2022-03-02T21:18:17+00:00</updated>
   
     <id>https://glenntoms.github.io/posts/vulnnet-dotpy/</id>
     <content src="https://glenntoms.github.io/posts/vulnnet-dotpy/" />
@@ -52,7 +52,7 @@
 
 
 
-VulnNet: dotpy is a medium difficulty box with a focus on Python.
+VulnNet: dotpy is a medium difficulty box with a focus on Python. Stats off with finding an SSTI with URL character black listing and finally into a python package take over. Description
 
 [01] Recon
 
@@ -64,10 +64,7 @@ nmap -sC -sV -oA nmap/scan -p- -v 10.10.132.101
 
 ---snip---
 PORT     STATE SERVICE VERSION
-8080/tcp open  http    Werkzeug httpd 1.0.1 (Python 3.6.9)
-| http-methods: 
-|_  Supported Methods: HEAD GET OPTIONS
-| http-title: VulnNet Entertainment -  Login  | Disc...
+8080/tcp open  http    Werkzeug httpd 1.0.1 (Py...
     </summary>
   
 
@@ -79,7 +76,7 @@ PORT     STATE SERVICE VERSION
     <link href="https://glenntoms.github.io/posts/vulnnet/" rel="alternate" type="text/html" title="VulnNet" />
     <published>2022-02-28T06:07:11+00:00</published>
   
-    <updated>2022-03-02T14:08:20+00:00</updated>
+    <updated>2022-03-02T21:10:33+00:00</updated>
   
     <id>https://glenntoms.github.io/posts/vulnnet/</id>
     <content src="https://glenntoms.github.io/posts/vulnnet/" />
