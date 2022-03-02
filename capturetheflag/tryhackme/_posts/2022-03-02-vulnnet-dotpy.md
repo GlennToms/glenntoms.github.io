@@ -9,7 +9,7 @@ tags: python jinja2 hex ssti
 
 ![Subscribe](/assets/img/vulnnet_dotpy/icon.png){: w="100" .left}
 
-VulnNet: dotpy is a medium difficulty box with a focus on `Python`.
+VulnNet: dotpy is a medium difficulty box with a focus on `Python`. Stats off with finding an `SSTI` with URL character black listing and finally into a python package take over. Description
 
 
 ## [01] Recon
