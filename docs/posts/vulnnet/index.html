@@ -41,8 +41,8 @@
 <meta name="generator" content="Jekyll v4.2.1" />
 <meta property="og:title" content="VulnNet" />
 <meta property="og:locale" content="en" />
-<meta name="description" content="[0x01] Outline" />
-<meta property="og:description" content="[0x01] Outline" />
+<meta name="description" content="[01] Outline" />
+<meta property="og:description" content="[01] Outline" />
 <link rel="canonical" href="https://glenntoms.github.io/posts/vulnnet/" />
 <meta property="og:url" content="https://glenntoms.github.io/posts/vulnnet/" />
 <meta property="og:site_name" content="InfoSec Journey" />
@@ -52,7 +52,7 @@
 <meta property="twitter:title" content="VulnNet" />
 <meta name="twitter:site" content="@Glenn__Toms" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","description":"[0x01] Outline","url":"https://glenntoms.github.io/posts/vulnnet/","headline":"VulnNet","dateModified":"2022-03-02T14:08:20+00:00","datePublished":"2022-02-28T06:07:11+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://glenntoms.github.io/posts/vulnnet/"},"@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://glenntoms.github.io/posts/vulnnet/"},"@type":"BlogPosting","description":"[01] Outline","url":"https://glenntoms.github.io/posts/vulnnet/","headline":"VulnNet","dateModified":"2022-03-02T14:08:20+00:00","datePublished":"2022-02-28T06:07:11+00:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1225,7 +1225,7 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="2184 words">
+  title="2185 words">
   <em>12 min</em> read</span>
 
 
@@ -1238,7 +1238,7 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <h2 id="0x01-outline"><span class="mr-2">[0x01] Outline</span><a href="#0x01-outline" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+  <h2 id="01-outline"><span class="mr-2">[01] Outline</span><a href="#01-outline" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p><img data-src="/assets/img/vulnnet/vulnnet_icon.png" alt="Subscribe" width="100" class="left" data-proofer-ignore></p>
 
@@ -1247,7 +1247,7 @@
 <p>Our first step is to enumerate the subdomains and collect a username and password using <code class="language-plaintext highlighter-rouge">LFI</code>.
 Then, using an unauthenticated file upload vulnerability, we upload our reverse shell, and finally, all privilege escalation is accomplished through the use of a backup script and <code class="language-plaintext highlighter-rouge">tar</code> abuse.</p>
 
-<h2 id="0x02-recon"><span class="mr-2">[0x02] Recon</span><a href="#0x02-recon" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+<h2 id="02-recon"><span class="mr-2">[02] Recon</span><a href="#02-recon" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p>Our scope document says we should add <code class="language-plaintext highlighter-rouge">vulnnet.thm</code> to our hosts file.</p>
 
@@ -1380,7 +1380,7 @@ vulnnet.thm
 
 <p>Now we’re stuck since we’ve exhausted <code class="language-plaintext highlighter-rouge">vulnnet.thm</code>. Our directory scan didn’t find anything, and we’re waiting on our <code class="language-plaintext highlighter-rouge">gobuster</code> scan of <code class="language-plaintext highlighter-rouge">broadcast.vulnnet.thm</code>. We can go back and take a deeper look at the JS files.</p>
 
-<h2 id="0x03-local-file-inclusion"><span class="mr-2">[0x03] Local File Inclusion</span><a href="#0x03-local-file-inclusion" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+<h2 id="03-local-file-inclusion"><span class="mr-2">[03] Local File Inclusion</span><a href="#03-local-file-inclusion" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p>Running <code class="language-plaintext highlighter-rouge">pursue</code> on our JS files shows that <code class="language-plaintext highlighter-rouge">index__d8338055.js</code> has a call with a <code class="language-plaintext highlighter-rouge">referer</code> parameter.</p>
 
@@ -1547,7 +1547,7 @@ Trying this as the username and password doesn’t work. A string starting with 
   </tbody>
 </table></div>
 
-<h2 id="0x04-clipbucket"><span class="mr-2">[0x04] Clipbucket</span><a href="#0x04-clipbucket" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+<h2 id="04-clipbucket"><span class="mr-2">[04] Clipbucket</span><a href="#04-clipbucket" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p>After logging in we see that we’re now on some sort of media sharing site.  I’m immediately thing file upload for reverse shell.</p>
 
@@ -1660,7 +1660,7 @@ After spending a few minutes trying to <code class="language-plaintext highlight
 </span>www-data
 </pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="0x05-privilege-escalation"><span class="mr-2">[0x05] Privilege Escalation</span><a href="#0x05-privilege-escalation" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+<h2 id="05-privilege-escalation"><span class="mr-2">[05] Privilege Escalation</span><a href="#05-privilege-escalation" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p>For quality of life work we’ll need a stable shell.</p>
 
@@ -1763,7 +1763,7 @@ Enter passphrase <span class="k">for </span>key <span class="s2">"id_rsa"</span>
 THM[REDACTED]
 </pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="0x06-privilege-escalation-to-root"><span class="mr-2">[0x06] Privilege Escalation to Root</span><a href="#0x06-privilege-escalation-to-root" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+<h2 id="06-privilege-escalation-to-root"><span class="mr-2">[06] Privilege Escalation to Root</span><a href="#06-privilege-escalation-to-root" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p>Taking a look at the key parts of the backup script we can see that it will run <code class="language-plaintext highlighter-rouge">tar *</code> in <code class="language-plaintext highlighter-rouge">/home/server-management/Documents</code>. There is a neat trick with <code class="language-plaintext highlighter-rouge">tar</code> on <a href="https://gtfobins.github.io/gtfobins/tar/">gtfobins</a>.</p>
 
@@ -1809,7 +1809,7 @@ THM[REDACTED]
 THM[REDACTED]
 </pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="0x07-server-hardening"><span class="mr-2">[0x07] Server Hardening</span><a href="#0x07-server-hardening" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
+<h2 id="07-server-hardening"><span class="mr-2">[07] Server Hardening</span><a href="#07-server-hardening" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2></h2>
 
 <p>In this section we will make recommendations on how to harden the server and mitigate these vulnerabilities.</p>
 
@@ -1837,7 +1837,7 @@ THM[REDACTED]
 </pre></td></tr></tbody></table></code></div></div>
 
 <h3 id="backup"><span class="mr-2">Backup</span><a href="#backup" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3></h3>
-<p><code class="language-plaintext highlighter-rouge">tar</code> should not be used to back up files using the <code class="language-plaintext highlighter-rouge">*</code> on the GNU version. Moving to another program such as <code class="language-plaintext highlighter-rouge">gunzip</code> is recommended as no known <code class="language-plaintext highlighter-rouge">privsec</code> is available at this time.</p>
+<p><code class="language-plaintext highlighter-rouge">tar</code> should not be used to back up files using the <code class="language-plaintext highlighter-rouge">*</code> on the GNU version. Moving to another program such as <code class="language-plaintext highlighter-rouge">gunzip</code> is recommended as no known privilege escalation is available at this time.</p>
 
 </div>
 
@@ -2070,6 +2070,196 @@ THM[REDACTED]
         
         
 
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
 
 
   <div id="access-tags">
@@ -2081,10 +2271,22 @@ THM[REDACTED]
       <a class="post-tag" href="/tags/hashcat/">hashcat</a>
     
       
+      <a class="post-tag" href="/tags/hex/">hex</a>
+    
+      
+      <a class="post-tag" href="/tags/jinja2/">jinja2</a>
+    
+      
       <a class="post-tag" href="/tags/john/">john</a>
     
       
       <a class="post-tag" href="/tags/lfi/">lfi</a>
+    
+      
+      <a class="post-tag" href="/tags/python/">python</a>
+    
+      
+      <a class="post-tag" href="/tags/ssti/">ssti</a>
     
       
       <a class="post-tag" href="/tags/tar/">tar</a>
@@ -2146,6 +2348,19 @@ THM[REDACTED]
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
     
 
 
@@ -2161,11 +2376,81 @@ THM[REDACTED]
   
     
     
+      
+      
+    
+  
+    
+    
   
 
 
 
 
+
+  <div id="related-posts" class="mt-5 mb-2 mb-sm-4">
+    <h3 class="pt-2 mt-1 mb-4 ml-1"
+      data-toc-skip>Further Reading</h3>
+    <div class="card-deck mb-4">
+    
+      
+      
+      <div class="card">
+        <a href="/posts/vulnnet-dotpy/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/timeago.js
+-->
+
+<em class="timeago small"
+    data-ts="1646151480"
+    
+    >
+  2022-03-01
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>VulnNet: dotpy</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                [01] Outline
+
+
+
+VulnNet: dotpy is a medium difficulty box with a focus on Python.
+
+[01] Recon
+
+nmap
+
+Running nmap we find port 8080 open
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+nmap -sC -sV -oA nmap/scan -p- -v 1...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+    </div> <!-- .card-deck -->
+  </div> <!-- #related-posts -->
 
 
       
@@ -2183,10 +2468,10 @@ THM[REDACTED]
   
 
   
-  <span class="btn btn-outline-primary disabled"
+  <a href="/posts/vulnnet-dotpy/" class="btn btn-outline-primary"
     prompt="Newer">
-    <p>-</p>
-  </span>
+    <p>VulnNet: dotpy</p>
+  </a>
   
 
 </div>
@@ -2341,6 +2626,196 @@ THM[REDACTED]
         
         
 
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
 
 
   <div id="access-tags">
@@ -2352,10 +2827,22 @@ THM[REDACTED]
       <a class="post-tag" href="/tags/hashcat/">hashcat</a>
     
       
+      <a class="post-tag" href="/tags/hex/">hex</a>
+    
+      
+      <a class="post-tag" href="/tags/jinja2/">jinja2</a>
+    
+      
       <a class="post-tag" href="/tags/john/">john</a>
     
       
       <a class="post-tag" href="/tags/lfi/">lfi</a>
+    
+      
+      <a class="post-tag" href="/tags/python/">python</a>
+    
+      
+      <a class="post-tag" href="/tags/ssti/">ssti</a>
     
       
       <a class="post-tag" href="/tags/tar/">tar</a>
